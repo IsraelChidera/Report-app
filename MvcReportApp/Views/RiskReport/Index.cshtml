@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Report.BLL.Models.EmployeeWithReportVM>
+
+
+
+<h1>Results</h1>
+<div>
+    <a asp-area="" asp-controller="riskreport" asp-action="create">
+        Create a new report
+    </a>
+</div>
+
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Location</th>
+            <th scope="col">Hazard Description</th>
+            <th scope="col">Resource At Risk</th>
+            <th scope="col">Risk Probability</th>
+            <th scope="col">Risk Impact</th>
+            <th scope="col">Preventive Measure</th>
+            <th scope="col">Hazard Rating</th>
+            <th scope="col">Additional Information</th>
+        </tr>
+    </thead>
+
+    @foreach (var item in Model.Select((v, i) => new { v, i }))
+    {
+    
+            <tbody>
+                @foreach (var reportItem in item.v.Reports.Select((v, i) => new { v, i }))
+                {                         
+               
+                            <tr>
+                                <th scope="row">@reportItem.i</th>
+                                <td>@reportItem.v.Location</td>
+                                <td>@reportItem.v.HazardDescription</td>
+                                <td>@reportItem.v.ResourceAtRisk</td>
+                                <td>@reportItem.v.RiskProbability</td>
+                                <td>@reportItem.v.RiskImpact</td>
+                                <td>@reportItem.v.PreventiveMeasure</td>
+                                <td>@reportItem.v.HazardRating</td>
+                                <td>@reportItem.v.AdditionalInfo</td>
+                            </tr>              
+   
+                }
+            </tbody>
+    
+    }
+
+</table>

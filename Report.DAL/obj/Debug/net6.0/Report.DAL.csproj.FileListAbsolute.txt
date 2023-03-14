@@ -1,0 +1,14 @@
+C:\Users\Admin\source\repos\MvcReportApp\Report.DAL\bin\Debug\net6.0\Report.DAL.deps.json
+C:\Users\Admin\source\repos\MvcReportApp\Report.DAL\bin\Debug\net6.0\Report.DAL.runtimeconfig.json
+C:\Users\Admin\source\repos\MvcReportApp\Report.DAL\bin\Debug\net6.0\Report.DAL.dll
+C:\Users\Admin\source\repos\MvcReportApp\Report.DAL\bin\Debug\net6.0\Report.DAL.pdb
+C:\Users\Admin\source\repos\MvcReportApp\Report.DAL\obj\Debug\net6.0\Report.DAL.csproj.AssemblyReference.cache
+C:\Users\Admin\source\repos\MvcReportApp\Report.DAL\obj\Debug\net6.0\Report.DAL.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Admin\source\repos\MvcReportApp\Report.DAL\obj\Debug\net6.0\Report.DAL.AssemblyInfoInputs.cache
+C:\Users\Admin\source\repos\MvcReportApp\Report.DAL\obj\Debug\net6.0\Report.DAL.AssemblyInfo.cs
+C:\Users\Admin\source\repos\MvcReportApp\Report.DAL\obj\Debug\net6.0\Report.DAL.csproj.CoreCompileInputs.cache
+C:\Users\Admin\source\repos\MvcReportApp\Report.DAL\obj\Debug\net6.0\Report.DAL.dll
+C:\Users\Admin\source\repos\MvcReportApp\Report.DAL\obj\Debug\net6.0\refint\Report.DAL.dll
+C:\Users\Admin\source\repos\MvcReportApp\Report.DAL\obj\Debug\net6.0\Report.DAL.pdb
+C:\Users\Admin\source\repos\MvcReportApp\Report.DAL\obj\Debug\net6.0\Report.DAL.genruntimeconfig.cache
+C:\Users\Admin\source\repos\MvcReportApp\Report.DAL\obj\Debug\net6.0\ref\Report.DAL.dll

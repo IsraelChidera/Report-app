@@ -1,0 +1,127 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Reports";
+}
+@using Report.DAL.Enums
+@using static Report.DAL.Enums.HazardRatingEnum;
+@using static Report.DAL.Enums.RiskImpactEnum;
+@using static Report.DAL.Enums.RiskProbabilityEnum;
+
+@model Report.BLL.Models.AddOrUpdateReportVM;
+
+
+<section id="appointment" class="appointment section-bg">
+    <div class="container">
+
+        <div class="section-title">
+            <h2>Create a report</h2>
+            <p>
+                Enter your risk assessment report on the job you just completed
+            </p>
+        </div>
+
+        <form asp-controller="RiskReport" asp-action="Save">
+
+            @if (ViewBag.ErrMsg != null)
+            {
+
+                {
+                    <div class="alert alert-danger alert-dismissible fade show"
+                 role="alert">
+                        <strong>Error!</strong> @ViewBag.ErrMsg
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                }
+            }
+
+            <div class="alert-danger" asp-validation-summary="@ValidationSummary.All"></div>
+
+            <div class="mb-3">
+                <label asp-for="@Model.EmployeeId" class="form-label"></label>
+                <input class="form-control" asp-for="@Model.EmployeeId">
+                <span asp-validation-for="EmployeeId"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="@Model.ReportId" class="form-label"></label>
+                <input class="form-control" asp-for="@Model.ReportId">
+                <span asp-validation-for="ReportId"></span>
+            </div>
+
+
+            <div class="mb-3">
+                <label asp-for="@Model.Location" class="form-label"></label>
+                <input class="form-control" asp-for="@Model.Location">
+                <span asp-validation-for="Location"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="@Model.HazardDescription" class="form-label"></label>
+                <textarea class="form-control" asp-for="@Model.HazardDescription"></textarea>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="@Model.ResourceAtRisk" class="form-label"></label>
+                <input class="form-control" asp-for="@Model.ResourceAtRisk">
+                <span asp-validation-for="ResourceAtRisk"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="@Model.RiskProbability" class="form-label"></label>                
+
+                <select class="form-select" aria-label="Default select example"
+                        asp-for="@Model.RiskProbability" asp-items="Html.GetEnumSelectList <RiskProbability>()">
+                    <option selected="" value="">Pick a Risk Probability</option>
+
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="@Model.RiskImpact" class="form-label"></label>
+                <select class="form-select" aria-label="Default select example"
+                        asp-for="@Model.RiskImpact" asp-items="Html.GetEnumSelectList <RiskImpact>()">
+                    <option selected="" value="">Pick a Risk Impact</option>
+
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="@Model.PreventiveMeasure" class="form-label"></label>
+                <input class="form-control" asp-for="@Model.PreventiveMeasure">
+                <span asp-validation-for="PreventiveMeasure"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="@Model.HazardRating" class="form-label"></label>
+                <select class="form-select" aria-label="Default select example"
+                        asp-for="@Model.HazardRating" asp-items="Html.GetEnumSelectList <HazardRating>()">
+                    <option selected="" value="">Pick a rating of the hazard</option>
+
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="@Model.AdditionalInfo" class="form-label"></label>
+                <textarea class="form-control" asp-for="@Model.AdditionalInfo"></textarea>
+            </div>
+
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary">Submit</button>
+                @*<input type="submit" value="Create report" class="btn btn-primary w-100"/>*@
+
+            </div>
+        </form>
+        <div>
+            <a asp-area="" asp-controller="RiskReport" asp-action="Index">
+                View all records
+            </a>
+        </div>
+    </div>
+</section>
