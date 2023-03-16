@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Report.DAL.Migrations
 {
-    public partial class Initialmigration : Migration
+    public partial class InitializeDb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -39,7 +39,7 @@ namespace Report.DAL.Migrations
                     RiskImpact = table.Column<int>(type: "int", nullable: false),
                     PreventiveMeasure = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     HazardRating = table.Column<int>(type: "int", nullable: false),
-                    AdditionalInfo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AdditionalInfo = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     EmployeeId = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },

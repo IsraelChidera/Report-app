@@ -1,5 +1,8 @@
 ﻿@model IEnumerable<Report.BLL.Models.EmployeeWithReportVM>
 
+@{
+    Layout = "_LayoutReport";
+}
 
 
 <h1>Results</h1>
@@ -9,11 +12,16 @@
     </a>
 </div>
 
+<div>
+    <a asp-area="" asp-controller="User" asp-action="Index">
+        Return to dashboard
+    </a>
+</div>
+
 
 <table class="table table-hover">
     <thead>
-        <tr>
-            <th scope="col">#</th>
+        <tr>           
             <th scope="col">Location</th>
             <th scope="col">Hazard Description</th>
             <th scope="col">Resource At Risk</th>
@@ -32,8 +40,7 @@
                 @foreach (var reportItem in item.v.Reports.Select((v, i) => new { v, i }))
                 {                         
                
-                            <tr>
-                                <th scope="row">@reportItem.i</th>
+                            <tr>                                
                                 <td>@reportItem.v.Location</td>
                                 <td>@reportItem.v.HazardDescription</td>
                                 <td>@reportItem.v.ResourceAtRisk</td>

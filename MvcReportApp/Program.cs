@@ -1,10 +1,11 @@
-using Report.DAL.Entities;
-using Report.DAL.SeededData;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
-using System.Reflection;
-using Report.DAL.Repository;
-using Report.BLL.Interfaces;
 using Report.BLL.Implementation;
+using Report.BLL.Interfaces;
+using Report.DAL.Entities;
+using Report.DAL.Repository;
+using Report.DAL.SeededData;
+using System.Reflection;
 
 namespace MvcReportApp
 {
@@ -24,7 +25,7 @@ namespace MvcReportApp
             });
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork<ReportDbContext>>();
 
-
+            builder.Services.AddScoped<IUserService, UserAuthService>();
             builder.Services.AddScoped<IEmployeeService, EmployeeService>();//todo: show other life-cycles
             builder.Services.AddScoped<IReportListService, ReportListService>();
 
@@ -48,9 +49,20 @@ namespace MvcReportApp
 
             app.UseAuthorization();
 
-            app.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+            app.UseEndpoints(e =>
+            {
+                e.MapControllerRoute(
+                    name: "delete",
+                    pattern: "{controller=RiskReport}/{action}/{employeeId?}/{reportId?}"
+                );
+
+                e.MapControllerRoute(
+                   name: "default",
+                   pattern: "{controller=Home}/{action=Index}/{id?}");
+                
+            });
+
+
 
 
             await SeedData.EnsurePopulatedAsync(app);

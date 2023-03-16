@@ -53,10 +53,30 @@ namespace Report.BLL.Implementation
             return rowChanges > 0 ? (true, $"Task: {model.ReportId} was successfully created!") : (false, "Failed To save changes!");
         }
 
-        public Task<(bool check, string message)> DeleteAsync(int employeeId, int reportId)
+
+        public async Task<(bool check, string message)> DeleteAsync(int employeeId, int reportId)
         {
-            throw new NotImplementedException();
+            Employee employee = await _employeeRepo.GetSingleByAsync(e=>e.Id==employeeId, 
+                include: e=>e.Include(r=>r.ReportList.Where(x=>x.EmployeeId==employeeId)),tracking:true );
+
+            if (employee == null)
+            {
+                return (false, $"User with id:{employeeId} does not exist");
+            }
+
+            RiskReport employeereport = employee.ReportList.FirstOrDefault(x=>x.Id == reportId);
+
+            if(employeereport != null)
+            {
+                employee.ReportList.Remove(employeereport);
+
+                return await _unitOfWork.SaveChangesAsync() > 0 ? (true, $"Report with id:{reportId} have been successfully deleted") :
+                    (false, $"Failed to delete report");
+            }
+
+            return (false, $"Report with Id:{reportId} was not found");
         }
+
 
         public (RiskReport to, string message) GetReport(int employeeId, int taskId)
         {

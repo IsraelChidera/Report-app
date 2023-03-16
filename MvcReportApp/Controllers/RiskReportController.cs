@@ -47,5 +47,19 @@ namespace MvcReportApp.Controllers
             return View("Create");
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Delete(int employeeId, int reportId)
+        {
+            var (check, message) = await _reportService.DeleteAsync(employeeId, reportId);
+            if (check)
+            {
+                TempData["SuccessMsg"] = message;
+                return RedirectToAction("Index");
+            }
+
+            @TempData["ErrorMsg"] = message;
+            return View("Index");
+        }
+
     }
 }

@@ -1,0 +1,69 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model Report.BLL.Models.UserViewModel
+<div class="row">
+    @* <div class="alert-danger" asp-validation-summary="@ValidationSummary.All"></div>*@
+
+    <h1 class="">
+        Register Employee
+    </h1>
+    <a asp-controller="User" asp-action="Login">
+        Are you registered? Login here
+    </a>
+
+    @if(@ViewBag.ErrMsg != null)
+        {
+            <div>
+                @ViewBag.ErrMsg
+            </div>
+        }
+
+    @if (@TempData["SuccessMsg"] != null)
+    {
+        <div>
+            @TempData["SuccessMsg"]
+        </div>
+    }
+
+
+    <div class="col-lg-10 mt-5 mt-lg-0">
+        <form asp-controller="User" asp-action="New">
+
+            <div class="form-group ">
+                <label asp-for="@Model.FullName">Full Name</label>
+                <input asp-for="@Model.FullName" class="form-control" id="name">
+                <span style="color: red" asp-validation-for="FullName"></span>
+            </div>
+            <div class="form-group ">
+                <label asp-for="@Model.Email">Email</label>
+                <input class="form-control" id="email" asp-for="@Model.Email">
+                <span style="color: red" asp-validation-for="Email"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="@Model.Title">Title</label>
+                <input class="form-control" asp-for="@Model.Title" id="subject">
+                <span style="color: red" asp-validation-for="Title"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Password">Password</label>
+                <input asp-for="@Model.Password" class="form-control" id="subject">
+                <span style="color: red" asp-validation-for="Password"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.ConfirmPassword">Confirm Password</label>
+                <input asp-for="@Model.ConfirmPassword" class="form-control" id="subject">
+                <span style="color: red" asp-validation-for="ConfirmPassword"></span>
+            </div>
+            @*<a asp-action="Login" asp-controller="User">Click here to login</a>*@
+            <br />
+            <div>
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+
+</div>

@@ -4,7 +4,7 @@
 
 namespace Report.DAL.Migrations
 {
-    public partial class SeededData : Migration
+    public partial class Entities : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
