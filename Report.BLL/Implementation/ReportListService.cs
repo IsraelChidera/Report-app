@@ -55,7 +55,7 @@ namespace Report.BLL.Implementation
 
 
         public async Task<(bool check, string message)> DeleteAsync(int employeeId, int reportId)
-        {
+        {         
             Employee employee = await _employeeRepo.GetSingleByAsync(e=>e.Id==employeeId, 
                 include: e=>e.Include(r=>r.ReportList.Where(x=>x.EmployeeId==employeeId)),tracking:true );
 
@@ -77,24 +77,23 @@ namespace Report.BLL.Implementation
             return (false, $"Report with Id:{reportId} was not found");
         }
 
-
-        public (RiskReport to, string message) GetReport(int employeeId, int taskId)
+        public async Task<ReportVM> GetReportById(int id)
         {
-            Employee employee = null;
+            RiskReport report = await _reportRepo.GetByIdAsync(id);
 
-            if(employee == null)
+            return new ReportVM()
             {
-                return (null, "User not found");
-            }
-
-            RiskReport report = employee.ReportList.FirstOrDefault(r => r.Id == taskId);
-
-            if(report == null)
-            {
-                return (null, "Task not found");
-            }
-
-            return (report, "");
+                Id = report.Id,
+                Location = report.Location,
+                HazardDescription = report.HazardDescription,
+                ResourceAtRisk = report.ResourceAtRisk,
+                RiskProbability = report.RiskProbability.ToString(),
+                RiskImpact = report.RiskImpact.ToString(),
+                PreventiveMeasure = report.PreventiveMeasure,
+                HazardRating = report.HazardRating.ToString(),
+                AdditionalInfo = report.AdditionalInfo,
+                EmployeeId = report.EmployeeId.ToString(),
+            };
         }
 
         public IEnumerable<RiskReport> GetReports()

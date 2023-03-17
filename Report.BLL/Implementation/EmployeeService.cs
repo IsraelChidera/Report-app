@@ -39,6 +39,7 @@ namespace Report.BLL.Implementation
                 FullName= u.FullName,
                 Reports=u.ReportList.Select(t=>new ReportVM
                 {
+                    Id = t.Id,
                     Location = t.Location,
                     ResourceAtRisk = t.ResourceAtRisk,
                     HazardDescription = t.HazardDescription,

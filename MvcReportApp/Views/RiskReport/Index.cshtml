@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Report.BLL.Models.EmployeeWithReportVM>
+﻿@model IEnumerable<Report.BLL.Models.EmployeeWithReportVM>;
+@*@model Report.DAL.Entities.RiskReport;*@
 
 @{
     Layout = "_LayoutReport";
@@ -49,6 +50,13 @@
                                 <td>@reportItem.v.PreventiveMeasure</td>
                                 <td>@reportItem.v.HazardRating</td>
                                 <td>@reportItem.v.AdditionalInfo</td>
+                                <td>
+                                    <i class="fas fa-edit text-primary"></i>
+                                </td>
+                                <td>
+                                    <i class="fa fa-trash text-danger" aria-hidden="true"></i>
+                                    <a asp-controller="RiskReport" asp-action="Details" asp-route-id="@reportItem.v?.Id">View Details</a>                                    
+                                </td>
                             </tr>              
    
                 }

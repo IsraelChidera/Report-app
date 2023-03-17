@@ -17,6 +17,15 @@ namespace MvcReportApp.Controllers
 
         public async Task<IActionResult> Index()
         {
+            string dataId = TempData["UserDataId"] as string;
+            string dataEmail = TempData["UserDataEmail"] as string;
+
+            if(!string.IsNullOrEmpty(dataId) && !string.IsNullOrEmpty(dataEmail))
+            {
+                ViewBag.Id = dataId;
+                ViewBag.Email = dataEmail;
+            }
+
             var model = await _employeeService.GetEmployeeWithReportAsync();
             return View(model);            
         }
@@ -67,8 +76,14 @@ namespace MvcReportApp.Controllers
 
                 if (successful)
                 {
-                    ViewBag.UserLoggedID = user.Id;
-                    ViewBag.UserLoggedName = user.FullName;
+                    /*ViewBag.UserLoggedID = model.Email;
+                    ViewBag.UserLoggedName = model.Password;
+                    ViewBag.UserName = user.FullName;
+                    ViewBag.UserTitle = user.Title;*/
+
+                    TempData["UserDataEmail"] = model.Email;
+                    TempData["UserDataId"] = user.FullName;
+
                     TempData["successMsg"] = msg;
                     return RedirectToAction("Index");
                 }

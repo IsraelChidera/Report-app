@@ -27,6 +27,17 @@ namespace MvcReportApp.Controllers
             return View(new AddOrUpdateReportVM());
         }
 
+        public async Task<IActionResult> Details(int id)
+        {
+            var reportExist = await _reportService.GetReportById(id);
+            if (reportExist == null && !(id>0))
+            {
+                return NotFound();
+            }
+
+            return View(reportExist);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Save(AddOrUpdateReportVM model)
         {
@@ -48,17 +59,18 @@ namespace MvcReportApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Delete(int employeeId, int reportId)
+        public async Task<IActionResult> Delete(int Id, int EmployeeId)
         {
-            var (check, message) = await _reportService.DeleteAsync(employeeId, reportId);
+            var (check, message) = await _reportService.DeleteAsync(EmployeeId, Id);
             if (check)
             {
                 TempData["SuccessMsg"] = message;
                 return RedirectToAction("Index");
             }
+            
 
             @TempData["ErrorMsg"] = message;
-            return View("Index");
+            return View("Details");
         }
 
     }

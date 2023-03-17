@@ -1,0 +1,29 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model Report.BLL.Models.ReportVM;
+
+@{
+    Layout = "_LayoutReport";
+    ViewData["Title"] = "Report Details";
+}
+
+<h1>Report Details</h1>
+
+<div>
+    <p>@Model.EmployeeId</p>
+    <p> @Model.HazardDescription</p>
+    <p>@Model.Location</p>
+    <p>@Model.AdditionalInfo</p>
+    <p>@Model.RiskProbability.ToString()</p>
+
+    <form asp-controller="RiskReport" asp-action="Delete">
+        <input type="hidden" asp-for="@Model.Id" />
+        <input type="hidden" asp-for="@Model.EmployeeId" />
+        <button type="submit">
+            <i class="fa fa-trash text-danger" aria-hidden="true"></i> Delete
+        </button>
+    </form>
+</div>

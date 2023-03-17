@@ -7,7 +7,7 @@ namespace Report.BLL.Interfaces
     {
         Task<(bool check, string message)> AddOrUpdateAsync(AddOrUpdateReportVM model);
         Task<(bool check, string message)> DeleteAsync(int employeeId, int reportId);
-        (RiskReport to, string message) GetReport(int employeeId, int taskId);
+        Task<ReportVM> GetReportById(int reportId);
         IEnumerable<RiskReport> GetReports();
     }
 }
