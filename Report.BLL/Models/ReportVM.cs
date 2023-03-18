@@ -17,10 +17,10 @@ namespace Report.BLL.Models
         public string Location { get; set; }
         public string HazardDescription { get; set; }
         public string ResourceAtRisk { get; set; }
-        public string RiskProbability { get; set; }
-        public string RiskImpact { get; set; }
+        public RiskProbability RiskProbability { get; set; }
+        public RiskImpact RiskImpact { get; set; }
         public string PreventiveMeasure { get; set; }
-        public string HazardRating { get; set; }
+        public HazardRating HazardRating { get; set; }
         public string AdditionalInfo { get; set; }
         public string EmployeeId { get; set; }
     }

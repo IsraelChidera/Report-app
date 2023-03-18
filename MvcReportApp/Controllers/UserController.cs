@@ -74,7 +74,7 @@ namespace MvcReportApp.Controllers
             {
                 var (successful, msg, user) = await _userService.UserLoginAsync(model);
 
-                if (successful)
+                if (successful) 
                 {
                     /*ViewBag.UserLoggedID = model.Email;
                     ViewBag.UserLoggedName = model.Password;

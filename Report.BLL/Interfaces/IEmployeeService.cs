@@ -6,7 +6,7 @@ namespace Report.BLL.Interfaces
     public interface IEmployeeService
     {
         void Create(CreateUserVM model);
-        IEnumerable<Employee> GetEmployees();
+        IEnumerable<ReportVM> GetEmployeesReport(int Id);   
         Task<IEnumerable<EmployeeWithReportVM>> GetEmployeeWithReportAsync();
     }
 }

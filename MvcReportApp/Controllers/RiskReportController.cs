@@ -38,6 +38,42 @@ namespace MvcReportApp.Controllers
             return View(reportExist);
         }
 
+        public async Task<IActionResult> Edit(int id)
+        {
+            if (!(id > 0))
+            {
+                return NotFound();
+            }
+
+            var reportExists = await _reportService.GetReportById(id);
+
+            if(reportExists == null)
+            {
+                return NotFound();
+            }
+
+            return View(reportExists);
+        }
+
+        public async Task<IActionResult> Alter(ReportVM report)
+        {
+            if (ModelState.IsValid)
+            {
+                var (successful, msg) = await _reportService.EditProductAsync(report);
+
+                if (successful)
+                {
+                    TempData["SuccessMsg"] = msg;
+
+                    return RedirectToAction("Index");
+                }
+                ViewBag.ErrMsg = msg;
+                return View("Edit");
+            }
+
+            return View("Edit");
+        }
+
         [HttpPost]
         public async Task<IActionResult> Save(AddOrUpdateReportVM model)
         {

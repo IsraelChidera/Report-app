@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using Report.BLL.Interfaces;
 using Report.BLL.Models;
 using Report.DAL.Entities;
@@ -9,6 +10,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Report.DAL.Enums.HazardRatingEnum;
+using static Report.DAL.Enums.RiskImpactEnum;
+using static Report.DAL.Enums.RiskProbabilityEnum;
 
 namespace Report.BLL.Implementation
 {
@@ -77,6 +81,37 @@ namespace Report.BLL.Implementation
             return (false, $"Report with Id:{reportId} was not found");
         }
 
+        public async Task<(bool successful, string msg)> EditProductAsync(ReportVM report)
+        {
+
+            Employee employee = await _employeeRepo.GetSingleByAsync(e => e.Id == report.Id,
+               include: e => e.Include(r => r.ReportList.Where(x => x.EmployeeId == report.Id)), tracking: true);
+
+            if(employee == null)
+            {
+                return (false, $"User with id:{report.EmployeeId} does not exist");
+            }
+
+            RiskReport employeereport = employee.ReportList.FirstOrDefault(x => x.Id == report.Id);
+            
+            if (employeereport != null)
+            {
+                employeereport.Location = report.Location;
+                employeereport.HazardDescription = report.HazardDescription;
+                employeereport.ResourceAtRisk = report.ResourceAtRisk;
+                employeereport.RiskProbability = report.RiskProbability;
+                employeereport.RiskImpact = report.RiskImpact;
+                employeereport.PreventiveMeasure = report.PreventiveMeasure;
+                employeereport.HazardRating = report.HazardRating;
+                employeereport.AdditionalInfo = report.AdditionalInfo;
+
+                return await _unitOfWork.SaveChangesAsync() > 0 ? (true, $"Report with id:{report.Id} have been successfully deleted") :
+                   (false, $"Failed to delete report");
+            }
+
+            return (false, $"Report with Id:{report.EmployeeId} was not found");
+        }
+
         public async Task<ReportVM> GetReportById(int id)
         {
             RiskReport report = await _reportRepo.GetByIdAsync(id);
@@ -87,10 +122,10 @@ namespace Report.BLL.Implementation
                 Location = report.Location,
                 HazardDescription = report.HazardDescription,
                 ResourceAtRisk = report.ResourceAtRisk,
-                RiskProbability = report.RiskProbability.ToString(),
-                RiskImpact = report.RiskImpact.ToString(),
+                RiskProbability = report.RiskProbability,
+                RiskImpact = report.RiskImpact,
                 PreventiveMeasure = report.PreventiveMeasure,
-                HazardRating = report.HazardRating.ToString(),
+                HazardRating = report.HazardRating,
                 AdditionalInfo = report.AdditionalInfo,
                 EmployeeId = report.EmployeeId.ToString(),
             };

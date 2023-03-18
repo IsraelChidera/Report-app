@@ -15,6 +15,7 @@ namespace Report.BLL.Implementation
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IRepository<Employee> _employeeRepo;
+        private readonly IRepository<RiskReport> _reportRepo;
 
         public EmployeeService(IUnitOfWork unitOfWork)
         {
@@ -27,13 +28,28 @@ namespace Report.BLL.Implementation
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Employee> GetEmployees()
+        public IEnumerable<ReportVM> GetEmployeesReport(int Id)
         {
-            throw new NotImplementedException();
+            var report =  _reportRepo.GetQueryable(r => r.EmployeeId == Id);
+
+            return report.Select(r => new ReportVM
+            {
+                Id= r.Id,
+                Location =r.Location,
+                HazardDescription= r.HazardDescription,
+                ResourceAtRisk=r.ResourceAtRisk,
+                RiskProbability=r.RiskProbability,
+                RiskImpact=r.RiskImpact,
+                PreventiveMeasure=r.PreventiveMeasure,
+                HazardRating=r.HazardRating,
+                AdditionalInfo=r.AdditionalInfo,
+                EmployeeId=r.EmployeeId.ToString(),
+            });
         }
 
         public async Task<IEnumerable<EmployeeWithReportVM>> GetEmployeeWithReportAsync()
-        {
+        {            
+
             return (await _employeeRepo.GetAllAsync(include:u=>u.Include(t=>t.ReportList))).Select(u=> new EmployeeWithReportVM
             {
                 FullName= u.FullName,
@@ -43,11 +59,11 @@ namespace Report.BLL.Implementation
                     Location = t.Location,
                     ResourceAtRisk = t.ResourceAtRisk,
                     HazardDescription = t.HazardDescription,
-                    HazardRating = t.HazardRating.ToString(),
+                    HazardRating = t.HazardRating,
                     AdditionalInfo = t.AdditionalInfo,
-                    RiskImpact = t.RiskImpact.ToString(),
-                    RiskProbability = t.RiskProbability.ToString(),
-                    PreventiveMeasure = t.PreventiveMeasure.ToString(),
+                    RiskImpact = t.RiskImpact,
+                    RiskProbability = t.RiskProbability,
+                    PreventiveMeasure = t.PreventiveMeasure,
                 })
             });
         }
